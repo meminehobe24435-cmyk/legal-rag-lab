@@ -80,7 +80,13 @@ COMMON_TERMS: Tuple[str, ...] = (
     "属于", "视为", "构成", "包括", "包含", "超过", "低于", "高于", "达到", "不足",
     "由于", "因此", "据此", "另有", "除非", "否则", "仍然", "已经", "尚未", "能否",
     # 疑问词与高频名词：用户提问里一定会出现，词典里没有就会碎成单字 + 垃圾二元组
-    "多少", "比例", "比例是", "怎么", "如何", "哪些", "什么", "多久", "几天", "是否",
+    # ⚠️ **不要放"××是"这种把疑问词粘在名词后面的条目**（曾经误收了 `比例是`）：
+    #    最大正向匹配是**贪婪**的，"预付款比例是多少"会被切成 `预付款 / 比例是 / 多少`，
+    #    把真正的领域词"比例"整个吃掉；而"比例是"在合同文本里根本不存在，
+    #    于是被判成"关键信息缺失"，置信度直接腰斩 ——
+    #    实测同一句 `0.2155` vs 加个空格 `0.5447`，而拒答阈值就是 0.20：
+    #    一句正常提问只因写法不同就掉到拒答边缘。**词典条目要"干净"，不要图省事粘词。**
+    "多少", "比例", "怎么", "如何", "哪些", "什么", "多久", "几天", "是否",
     "何时", "哪里", "哪个", "为什么", "有没有", "能不能", "可不可以", "规定", "标准",
     "应当", "可以", "不得", "有权", "无权", "必须", "需要", "无需",
     # 股权/激励/薪酬类：**评测集暴露出来的词典缺口** ——
@@ -216,7 +222,11 @@ class Tokenizer(object):
         # ⚠️ 阈值不能太小：连续 2 个单字就生成二元组的话（比如"甲方"没在词典里时），
         #    会往索引里灌入大量只在某一条里出现过的假词，反而拉低排序质量。
         self.min_single_run = int(min_single_run)
-        self.cache: Dict[str, List[str]] = {}
+        # ⚠️ 缓存键必须带上 keep_stopwords（测试抓出来的问题）：
+        #    结果**取决于这个开关**，只用 text 当键会双向串味 ——
+        #    先默认调用（过滤停用词）再传 keep_stopwords=True，拿回的是过滤后的结果，反之亦然。
+        #    这类"结果取决于调用顺序"的 bug 在单测里表现为随机失败，最难查。
+        self.cache: Dict[Tuple[str, bool], List[str]] = {}
         self.stats = {"calls": 0, "cache_hits": 0}
 
     # ------------------------------------------------------------------ 主入口
@@ -225,7 +235,8 @@ class Tokenizer(object):
         if not text:
             return []
         self.stats["calls"] += 1
-        cached = self.cache.get(text)
+        cache_key = (text, bool(keep_stopwords))
+        cached = self.cache.get(cache_key)
         if cached is not None:
             self.stats["cache_hits"] += 1
             return list(cached)
@@ -251,7 +262,7 @@ class Tokenizer(object):
                     run = []
         if not keep_stopwords:
             tokens = [t for t in tokens if t not in self.stopwords]
-        self.cache[text] = list(tokens)
+        self.cache[cache_key] = list(tokens)
         return tokens
 
     def expand(self, tokens: Sequence[str]) -> List[str]:

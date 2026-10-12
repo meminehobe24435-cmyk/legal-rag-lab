@@ -45,7 +45,7 @@ jobs:
           set -e
           python -m legalrag ask "预付款是多少？" | tee ask1.txt
           grep -q "回答" ask1.txt
-          python -m legalrag ask "合同里约定了股权比例吗？" | tee ask2.txt
+          python -m legalrag ask "合同里写了每年有多少天带薪年假吗？" | tee ask2.txt
           grep -q "拒答" ask2.txt
           python -m legalrag search "违约金" -k 3 | tee search.txt
           grep -q "置信度" search.txt
@@ -122,12 +122,18 @@ jobs:
           from legalrag.server import Handler
           Handler.web_root = os.path.abspath("web")
           # 直接按 server 里的实现验一遍：realpath 后必须仍在 web_root 之内
+          import urllib.parse
           root = os.path.realpath(Handler.web_root)
           for attack in ("/../legalrag/api.py", "/../../etc/passwd", "/..%2flegalrag/api.py"):
-              target = os.path.realpath(os.path.join(root, attack.lstrip("/")))
+              # ⚠️ 必须**先 unquote 再 join** —— 服务端就是这么做的（`_serve_static` 里
+              #    `urllib.parse.unquote(parsed.path)` 之后才 realpath + 前缀校验）。
+              #    第一版自检忘了解码，于是 `%2f` 被当成普通字符、realpath 仍在 root 内，
+              #    自检把自己判成失败（假阳性）。
+              decoded = urllib.parse.unquote(attack)
+              target = os.path.realpath(os.path.join(root, decoded.lstrip("/")))
               inside = target == root or target.startswith(root + os.sep)
-              print("%-28s -> inside=%s" % (attack, inside))
-              if inside and "legalrag" in target:
+              print("%-28s -> decoded=%-24s inside=%s" % (attack, decoded, inside))
+              if inside and os.path.basename(target).endswith(".py"):
                   sys.exit("路径穿越检查失败：" + attack)
           print("路径穿越检查通过")
           PY
@@ -202,7 +208,7 @@ jobs:
           python -c "import json;d=json.load(open('ask.json'));assert d['citations'], '没有引用';print('引用条款:', [c['number'] for c in d['citations']])"
           echo "--- 拒答 ---"
           curl -sf -X POST http://127.0.0.1:8137/api/ask -H 'Content-Type: application/json' \
-            -d '{"question":"合同里约定了股权比例吗？"}' | python -c "import json,sys;d=json.load(sys.stdin);print('refused =', d['refused'])"
+            -d '{"question":"合同里写了每年有多少天带薪年假吗？"}' | python -c "import json,sys;d=json.load(sys.stdin);print('refused =', d['refused'])"
           echo "--- 前端 ---"; curl -sf http://127.0.0.1:8137/ | head -c 120; echo
           echo "--- 路径穿越必须 403 ---"
           code=$(curl -s -o /dev/null -w '%{http_code}' 'http://127.0.0.1:8137/../legalrag/api.py')
