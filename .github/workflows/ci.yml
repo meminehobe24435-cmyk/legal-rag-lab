@@ -54,6 +54,7 @@ jobs:
         run: python -m legalrag eval --calibrate --out reports/eval_report.json
 
       - name: 评测门槛校验
+        shell: bash          # Windows runner 默认是 PowerShell，heredoc 只有 bash 认
         run: |
           python - <<'PY'
           import json, pathlib, sys
@@ -211,7 +212,15 @@ jobs:
             -d '{"question":"合同里写了每年有多少天带薪年假吗？"}' | python -c "import json,sys;d=json.load(sys.stdin);print('refused =', d['refused'])"
           echo "--- 前端 ---"; curl -sf http://127.0.0.1:8137/ | head -c 120; echo
           echo "--- 路径穿越必须 403 ---"
-          code=$(curl -s -o /dev/null -w '%{http_code}' 'http://127.0.0.1:8137/../legalrag/api.py')
-          echo "traversal status=$code"; test "$code" = "403"
+          # 注意 --path-as-is：不加的话 curl 会自己把 .. 规范化掉，测不到服务端的防护
+          code=$(curl -s --path-as-is -o /dev/null -w '%{http_code}' \
+            'http://127.0.0.1:8137/../legalrag/api.py')
+          echo "traversal(越界读取源码) status=$code"
+          test "$code" = "403"
+          # 反向确认：越界到存在的文件时必须 404/403 而**不能**是 200
+          leak=$(curl -s --path-as-is -o /dev/null -w '%{http_code}' \
+            'http://127.0.0.1:8137/../README.md')
+          echo "traversal(读到仓库根文件) status=$leak"
+          test "$leak" != "200"
           kill -TERM $SERVER_PID
           wait $SERVER_PID || true
