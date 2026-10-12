@@ -1,0 +1,38 @@
+[build-system]
+requires = ["setuptools>=61"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "legal-rag-lab"
+version = "1.0.0"
+description = "法律合同条款 RAG 检索与风险问答系统：中文法律分词 + BM25/向量混合检索 + 引用溯源 + 拒答（Python 3 标准库零依赖）"
+readme = "README.md"
+requires-python = ">=3.8"
+license = { text = "MIT" }
+authors = [{ name = "尤译庆", email = "meminehobe24435@gmail.com" }]
+keywords = ["rag", "retrieval", "bm25", "legal-tech", "contract-review", "citation", "chinese-nlp"]
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3 :: Only",
+    "Topic :: Text Processing :: Indexing",
+    "Topic :: Legal",
+]
+# 运行时零第三方依赖（CI 里有 AST 检查会拦下偷偷引入的包）
+dependencies = []
+
+[project.optional-dependencies]
+dev = ["pytest>=7"]
+
+[project.scripts]
+legalrag = "legalrag.cli:main"
+
+[project.urls]
+Homepage = "https://github.com/meminehobe24435-cmyk/legal-rag-lab"
+Source = "https://github.com/meminehobe24435-cmyk/legal-rag-lab"
+
+[tool.setuptools]
+packages = ["legalrag"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-q"

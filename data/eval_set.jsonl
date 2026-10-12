@@ -1,0 +1,40 @@
+{"id":"q001","query":"预付款要给多少钱，多久之内付？","contract_id":"purchase-2024-001","relevant_clause_ids":["purchase-2024-001#3.1"],"answer_keywords":["40%","预付款","5 个工作日"],"expect_refusal":false}
+{"id":"q002","query":"尾款和质保金分别是什么时候付？","contract_id":"purchase-2024-001","relevant_clause_ids":["purchase-2024-001#3.3","purchase-2024-001#3.2"],"answer_keywords":["质量保证金","10%","30 日内"],"expect_refusal":false}
+{"id":"q003","query":"设备最迟什么时候送到，送到哪里？","contract_id":"purchase-2024-001","relevant_clause_ids":["purchase-2024-001#4.1"],"answer_keywords":["2024 年 4 月 30 日","厂区仓库"],"expect_refusal":false}
+{"id":"q004","query":"设备晚到了会怎么样，能扣钱吗？","contract_id":"purchase-2024-001","relevant_clause_ids":["purchase-2024-001#4.4","purchase-2024-001#9.1"],"answer_keywords":["20 日","违约金","0.5%"],"expect_refusal":false}
+{"id":"q005","query":"验收怎么走流程，要试运行多久？","contract_id":"purchase-2024-001","relevant_clause_ids":["purchase-2024-001#5.1","purchase-2024-001#5.2"],"answer_keywords":["开箱","试运行","72 小时"],"expect_refusal":false}
+{"id":"q006","query":"质保期多长，设备坏了多久上门修？","contract_id":"purchase-2024-001","relevant_clause_ids":["purchase-2024-001#6.1"],"answer_keywords":["24 个月","24 小时","72 小时"],"expect_refusal":false}
+{"id":"q007","query":"送来的设备会不会是翻新机或者样机？","contract_id":"purchase-2024-001","relevant_clause_ids":["purchase-2024-001#5.3"],"answer_keywords":["全新未使用","返修机","样机"],"expect_refusal":false}
+{"id":"q008","query":"合同里的保密义务要守多久？","contract_id":"purchase-2024-001","relevant_clause_ids":["purchase-2024-001#8.2"],"answer_keywords":["6 个月","保密义务"],"expect_refusal":false}
+{"id":"q009","query":"合同里约定了双方的股权比例和年终分红吗？","contract_id":"purchase-2024-001","relevant_clause_ids":[],"answer_keywords":[],"expect_refusal":true}
+{"id":"q010","query":"这份采购合同有没有写商标许可使用的范围和许可费？","contract_id":"purchase-2024-001","relevant_clause_ids":[],"answer_keywords":[],"expect_refusal":true}
+{"id":"q011","query":"服务费一共多少钱，分几次付？","contract_id":"service-2024-002","relevant_clause_ids":["service-2024-002#3.1","service-2024-002#3.2"],"answer_keywords":["1,280,000","20%","60 日"],"expect_refusal":false}
+{"id":"q012","query":"合同到期之后会不会自动接着续下去？","contract_id":"service-2024-002","relevant_clause_ids":["service-2024-002#2.1"],"answer_keywords":["自动续期","30 日"],"expect_refusal":false}
+{"id":"q013","query":"平台可用率要求是多少，出问题多久响应？","contract_id":"service-2024-002","relevant_clause_ids":["service-2024-002#4.1"],"answer_keywords":["99.5%","30 分钟","2 小时"],"expect_refusal":false}
+{"id":"q014","query":"乙方能把活转包给别的公司做吗？","contract_id":"service-2024-002","relevant_clause_ids":["service-2024-002#4.3"],"answer_keywords":["分包","10 个工作日","连带责任"],"expect_refusal":false}
+{"id":"q015","query":"验收是不是甲方说行才算行？","contract_id":"service-2024-002","relevant_clause_ids":["service-2024-002#5.2"],"answer_keywords":["验收会议","满意"],"expect_refusal":false}
+{"id":"q016","query":"乙方写的源代码版权归谁？","contract_id":"service-2024-002","relevant_clause_ids":["service-2024-002#6.1"],"answer_keywords":["源代码","著作权","乙方所有"],"expect_refusal":false}
+{"id":"q017","query":"服务没达到标准要罚多少钱？","contract_id":"service-2024-002","relevant_clause_ids":["service-2024-002#8.1"],"answer_keywords":["1%","10%","违约金"],"expect_refusal":false}
+{"id":"q018","query":"双方的保密义务要持续到什么时候？","contract_id":"service-2024-002","relevant_clause_ids":["service-2024-002#7.2"],"answer_keywords":["3 年","保密义务"],"expect_refusal":false}
+{"id":"q019","query":"要是闹到仲裁，去哪里仲裁？","contract_id":"service-2024-002","relevant_clause_ids":["service-2024-002#11.1"],"answer_keywords":["仲裁","示范市仲裁委员会"],"expect_refusal":false}
+{"id":"q020","query":"现场服务人员的社保和加班费由谁承担？","contract_id":"service-2024-002","relevant_clause_ids":[],"answer_keywords":[],"expect_refusal":true}
+{"id":"q021","query":"试用期多长，试用期工资给多少？","contract_id":"labor-2024-003","relevant_clause_ids":["labor-2024-003#1","labor-2024-003#4.1"],"answer_keywords":["3 个月","12,000","试用期"],"expect_refusal":false}
+{"id":"q022","query":"工资每个月几号发，会不会被拖？","contract_id":"labor-2024-003","relevant_clause_ids":["labor-2024-003#4.2"],"answer_keywords":["每月 25 日","次月 10 日"],"expect_refusal":false}
+{"id":"q023","query":"加班工资怎么算？","contract_id":"labor-2024-003","relevant_clause_ids":["labor-2024-003#3.2"],"answer_keywords":["1.5 倍","2 倍","加班工资"],"expect_refusal":false}
+{"id":"q024","query":"离职后多久不能去同行，有补偿吗？","contract_id":"labor-2024-003","relevant_clause_ids":["labor-2024-003#5.3"],"answer_keywords":["2 年","2,000 元","补偿金"],"expect_refusal":false}
+{"id":"q025","query":"我在公司做的算法和代码归谁？","contract_id":"labor-2024-003","relevant_clause_ids":["labor-2024-003#7.1","labor-2024-003#7.2"],"answer_keywords":["职务成果","知识产权归甲方所有"],"expect_refusal":false}
+{"id":"q026","query":"离职以后还要替公司保密多久？","contract_id":"labor-2024-003","relevant_clause_ids":["labor-2024-003#6.2"],"answer_keywords":["6 个月","保密义务"],"expect_refusal":false}
+{"id":"q027","query":"我要辞职得提前多久打招呼？","contract_id":"labor-2024-003","relevant_clause_ids":["labor-2024-003#9.1"],"answer_keywords":["30 日","书面形式"],"expect_refusal":false}
+{"id":"q028","query":"试用期考核没过被辞退，有经济补偿吗？","contract_id":"labor-2024-003","relevant_clause_ids":["labor-2024-003#5.1"],"answer_keywords":["考核","经济补偿"],"expect_refusal":false}
+{"id":"q029","query":"合同里写了每年有多少天带薪年假吗？","contract_id":"labor-2024-003","relevant_clause_ids":[],"answer_keywords":[],"expect_refusal":true}
+{"id":"q030","query":"这份劳动合同有没有约定给我期权或者股权激励？","contract_id":"labor-2024-003","relevant_clause_ids":[],"answer_keywords":[],"expect_refusal":true}
+{"id":"q031","query":"对方给我的哪些东西算保密信息？","contract_id":"nda-2024-004","relevant_clause_ids":["nda-2024-004#2.1"],"answer_keywords":["技术方案","客户名单"],"expect_refusal":false}
+{"id":"q032","query":"什么情况下这些信息就不算秘密了？","contract_id":"nda-2024-004","relevant_clause_ids":["nda-2024-004#2.2"],"answer_keywords":["已合法知悉","已公开"],"expect_refusal":false}
+{"id":"q033","query":"保密义务要遵守多长时间？","contract_id":"nda-2024-004","relevant_clause_ids":["nda-2024-004#4.1"],"answer_keywords":["1 年","保密义务"],"expect_refusal":false}
+{"id":"q034","query":"合作谈崩了，资料要还回去吗？","contract_id":"nda-2024-004","relevant_clause_ids":["nda-2024-004#4.2"],"answer_keywords":["10 个工作日","返还","销毁"],"expect_refusal":false}
+{"id":"q035","query":"泄露了秘密要赔多少钱？","contract_id":"nda-2024-004","relevant_clause_ids":["nda-2024-004#5.1","nda-2024-004#5.2"],"answer_keywords":["500,000","违约金","间接损失"],"expect_refusal":false}
+{"id":"q036","query":"洽谈时给对方看的技术资料，算不算授权他用？","contract_id":"nda-2024-004","relevant_clause_ids":["nda-2024-004#6.1"],"answer_keywords":["许可","转让","授权"],"expect_refusal":false}
+{"id":"q037","query":"这份协议会不会自动一直续下去？","contract_id":"nda-2024-004","relevant_clause_ids":["nda-2024-004#6.3"],"answer_keywords":["自动续期","30 日"],"expect_refusal":false}
+{"id":"q038","query":"对方违约的话，我能解除协议吗？","contract_id":"nda-2024-004","relevant_clause_ids":["nda-2024-004#6.4"],"answer_keywords":["书面催告","10 日"],"expect_refusal":false}
+{"id":"q039","query":"真打官司的话去哪个法院告？","contract_id":"nda-2024-004","relevant_clause_ids":["nda-2024-004#7.2"],"answer_keywords":["人民法院","披露方所在地"],"expect_refusal":false}
+{"id":"q040","query":"协议里说没说样品测试的费用由谁出？","contract_id":"nda-2024-004","relevant_clause_ids":[],"answer_keywords":[],"expect_refusal":true}
